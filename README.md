@@ -1,5 +1,5 @@
-# apistar-docker-codebuild
-This repository includes code to launch an API to AWS CodeDeploy while using AWS CodeBuild to build the docker image.
+# API Star Docker CodePipeline
+This repository includes code to launch an API Star project to AWS CodeDeploy while using AWS CodeBuild to build the docker image.
 
 ## Pipeline Overview
 GitHub -> AWS CodeBuild -> AWS ElasticContainerRepository -> AWS CodeDeploy
@@ -55,4 +55,3 @@ The full policies JSON will look something like
     ]
 }
 ```
-Done!
