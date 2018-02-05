@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t api-star .
+      - docker tag api-star:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/api-star:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/api-star:latest
+
+      - sed -i -e "s|LOGIN_COMMAND|$(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)|g" scripts/install_container.sh
+      - sed -i -e "s|AWS_DEFAULT_REGION|$AWS_DEFAULT_REGION|g" scripts/install_container.sh
+      - sed -i -e "s|AWS_ACCOUNT_ID|$AWS_ACCOUNT_ID|g" scripts/install_container.sh
+      - sed -i -e "s|AWS_DEFAULT_REGION|$AWS_DEFAULT_REGION|g" scripts/install_container.sh
+
+      - sed -i -e "s|AWS_ACCOUNT_ID|$AWS_ACCOUNT_ID|g" scripts/start_container.sh
+      - sed -i -e "s|AWS_DEFAULT_REGION|$AWS_DEFAULT_REGION|g" scripts/start_container.sh
+artifacts:
+  type: zip
+  files:
+    - 'appspec.yml'
+    - 'scripts/install_container.sh'
+    - 'scripts/start_container.sh'
+    - 'scripts/kill_container.sh'
