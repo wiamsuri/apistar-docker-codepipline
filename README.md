@@ -35,7 +35,7 @@ The IAM role assigned to AWS CodeBuild should have the following policies
     "ecr:BatchGetImage"
 ]
 ```
-The full policies JSON will look something like
+The full policy JSON will look something like
 ```
 {
     "Version": "2012-10-17",
@@ -56,4 +56,10 @@ The full policies JSON will look something like
         }
     ]
 }
+```
+
+While configuring AWS CodeBuild, you will need to specify following environment variables:
+```
+AWS_ACCOUNT_ID
+AWS_DEFAULT_REGION
 ```
