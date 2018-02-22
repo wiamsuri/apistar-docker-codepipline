@@ -5,6 +5,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - echo Docker compose version $(docker-compose version)
   build:
     commands:
       - echo Build started on `date`
