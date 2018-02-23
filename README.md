@@ -13,13 +13,16 @@ Add the following lines to "User data" section. You may find this in the "Advanc
 ```
 #!/bin/bash
 sudo yum -y update
-sudo yum install -y docker
-sudo usermod -a -G docker ec2-user
-sudo service docker start
-sudo pip install docker-compose
+
 curl -O https://aws-codedeploy-ap-southeast-1.s3.amazonaws.com/latest/install
 chmod +x ./install
 sudo ./install auto
+
+sudo yum install -y docker
+sudo usermod -a -G docker ec2-user
+sudo service docker start
+sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
+sudo chmod +x /usr/bin/docker-compose
 ```
 
 ### Permission for AWS CodeBuild to push and pull docker images from ECR(ElasticContainerRepository)

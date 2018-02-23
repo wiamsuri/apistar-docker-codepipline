@@ -9,7 +9,7 @@ hooks:
       timeout: 20
       runas: ec2-user
   AfterInstall:
-    - location: scripts/install_container.sh
+    - location: scripts/after_install.sh
       timeout: 300
       runas: ec2-user
   ApplicationStart:

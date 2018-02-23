@@ -17,9 +17,7 @@ phases:
       - echo Pushing the Docker image...
       - docker-compose push
 
-      - sed -i -e "s|LOGIN_COMMAND|$(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)|g" scripts/install_container.sh
-      - sed -i -e "s|AWS_DEFAULT_REGION_ENV|$AWS_DEFAULT_REGION|g" scripts/install_container.sh
-      - sed -i -e "s|AWS_ACCOUNT_ID_ENV|$AWS_ACCOUNT_ID|g" scripts/install_container.sh
+      - sed -i -e "s|LOGIN_COMMAND|$(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)|g" scripts/after_install.sh
 
       - sed -i -e "s|AWS_DEFAULT_REGION_ENV|$AWS_DEFAULT_REGION|g" scripts/start_container.sh
       - sed -i -e "s|AWS_ACCOUNT_ID_ENV|$AWS_ACCOUNT_ID|g" scripts/start_container.sh
@@ -28,7 +26,8 @@ artifacts:
   type: zip
   files:
     - 'docker-compose.yml'
+    - 'nginx/default.conf'
     - 'appspec.yml'
-    - 'scripts/install_container.sh'
+    - 'scripts/after_install.sh'
     - 'scripts/start_container.sh'
     - 'scripts/kill_container.sh'
