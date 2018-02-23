@@ -1,2 +1,4 @@
 #!/bin/bash
-docker run --name api-star -dp 80:5000 AWS_ACCOUNT_ID.dkr.ecr.AWS_DEFAULT_REGION.amazonaws.com/api-star:latest
+export AWS_ACCOUNT_ID=AWS_ACCOUNT_ID_ENV
+export AWS_DEFAULT_REGION=AWS_DEFAULT_REGION_ENV
+docker-compose up -d
