@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.6
 
 COPY ./app/requirements.txt ./requirements.txt
 RUN pip install -U -r requirements.txt
