@@ -1,6 +1,4 @@
-from apistar import Include, Route
-from apistar.frameworks.wsgi import WSGIApp as App
-from apistar.handlers import docs_urls, static_urls
+from apistar import App, Route
 
 
 def welcome(name=None):
@@ -10,13 +8,11 @@ def welcome(name=None):
 
 
 routes = [
-    Route('/', 'GET', welcome),
-    Include('/docs', docs_urls),
-    Include('/static', static_urls)
+    Route('/', method='GET', handler=welcome),
 ]
 
 app = App(routes=routes)
 
 
 if __name__ == '__main__':
-    app.main()
+    app.serve('127.0.0.1', 5000, debug=True)
